@@ -6,8 +6,8 @@ import { StackNavigator,
   } from 'react-navigation';
   
 const App = StackNavigator({
-    Login: { screen: Home },
-    Home: { screen: Login },
+    Login: { screen: Login },
+    Home: { screen: Home },
 });
 export default App;
 console.disableYellowBox = true;
