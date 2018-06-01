@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "615245412608",
+    "firebase_url": "https://ezpeed-476fa.firebaseio.com",
+    "project_id": "ezpeed-476fa",
+    "storage_bucket": "ezpeed-476fa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:615245412608:android:965002720a4cdd07",
+        "android_client_info": {
+          "package_name": "com.ezpeed"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "615245412608-a1ltlf0k4mjb4c3nhffsmh6m909r7ujf.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "615245412608-a1ltlf0k4mjb4c3nhffsmh6m909r7ujf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbb0LvdsaSskFm8MaFtc8IkXBAxxNfOzo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
