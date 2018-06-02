@@ -23,7 +23,6 @@ export class Login extends Component{
         firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password)
         .then(() => this.props.navigation.navigate('Home', {email: email}))
     }
-
     static navigationOptions = {
         header: null,
     }
