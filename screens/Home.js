@@ -6,7 +6,6 @@ import React, {Component} from 'react';
 import firebase from 'react-native-firebase';
 
 
-
 export class Home extends Component {
     static navigationOptions = {
         title: "Home",
@@ -15,26 +14,35 @@ export class Home extends Component {
         super(props);
         
         this.state = {
+            address: '',
             latitude: 0,
             longitude: 0,
             marker:{
-              latitude: 0,
-              longitude: 0
+              latitude: null,
+              longitude: null
             },
             email: this.props.navigation.state.params.email,
         }
-        navigator.geolocation.getCurrentPosition((position) => {
-            this.setState({latitude: position.coords.latitude,
-                          longitude: position.coords.longitude,
-                        marker: {
-                          latitude: position.coords.latitude,
-                          longitude: position.coords.longitude
-                        }})
+        const lat = this.state.latitude;
+        const long = this.state.longitude;
+        
+    }
+    componentDidMount(){
+      navigator.geolocation.getCurrentPosition((position) => {
+        const {latitude, longitude} = position.coords
+        this.setState({latitude,longitude, marker:{latitude, longitude}
         })
-
+      })
     }
     render() {
- 
+      const lat = this.state.latitude;
+      const long = this.state.longitude;
+      fetch("https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+long+"&key=AIzaSyCNWPp3cslhIJ5YRbeVMCVu6EYVfzgkEIM", {
+        method: 'get'})
+        .then((data) =>  data.json()).then((dataJson) => {
+          const address = dataJson.results[0].formatted_address;
+          this.setState({address:address})
+        })
     return (
       <View style ={styles.container}>
         <MapView
@@ -56,7 +64,7 @@ export class Home extends Component {
         />
         </MapView>
         <View>
-          <Text>Endereço:</Text>
+          <Text>Endereço: {this.state.address}</Text>
           <Text>Latitude: {this.state.latitude}</Text>
           <Text>Longitude: {this.state.longitude}</Text>
           <Text>Nome:</Text>
