@@ -1,13 +1,14 @@
+import React, {Component} from 'react';
+import firebase from 'react-native-firebase';
 import MapView, { Marker, AnimatedRegion, Animated} from 'react-native-maps';
-import { StyleSheet,
+import { 
+        StyleSheet,
         View, 
         Text, 
         TextInput,
         TouchableOpacity,
         Modal,
         } from 'react-native';
-import React, {Component} from 'react';
-import firebase from 'react-native-firebase';
 
 
 export class Home extends Component {
@@ -16,28 +17,25 @@ export class Home extends Component {
     }
     constructor(props){
         super(props);
-        
-        this.db = firebase.database().ref('markers');
-        // this.db.on('value', (dataSnapshot)=>{
-          
-        // })
 
-        this.state = {
-            address: '',
-            latitude: 0,
-            longitude: 0,
-            error: null,
-            marker:{
-              title: '',
-              description: '',
-              coordinate:{
-                latitude: 0,
-                longitude: 0,
-              }
-            },
-            email: this.props.navigation.state.params.email,
-            modalVisible: false,
-        }
+        this.db = firebase.database().ref('markers');
+
+        this.state = {  
+          address:"",
+          latitude:0,
+          longitude:0,
+          error:null,
+          marker:{  
+             title:"",
+             description:"",
+             coordinate:{  
+                latitude:0,
+                longitude:0
+             }
+          },
+          email:this.props.navigation.state.params.email,
+          modalVisible:false
+       }
     }
     componentDidMount() {
       this.watchId = navigator.geolocation.watchPosition(
@@ -74,37 +72,36 @@ export class Home extends Component {
 
     }
     render() {
-      //Reverse geocoding
-      // const lat = this.state.latitude;
-      // const long = this.state.longitude;
-      // fetch("https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+long+"&key=AIzaSyCeEGUoBCUAJL7v97QAd-Lo_ZVxxi_j2xw", {
-      //   method: 'GET'})
-      //   .then((data) =>  data.json()).then((dataJson) => {
-      //     const address = dataJson.results[0].formatted_address;
-      //     this.setState({address:address})
-      //   })
+      const lat = this.state.marker.coordinate.latitude;
+      const long = this.state.marker.coordinate.longitude;
+      fetch("https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+long+"&key=AIzaSyCeEGUoBCUAJL7v97QAd-Lo_ZVxxi_j2xw", {
+        method: 'GET'})
+        .then((data) =>  data.json()).then((dataJson) => {
+          const address = dataJson.results[0].formatted_address;
+          this.setState({address:address})
+        })
 
     return (
       <View style ={styles.container}>
         <MapView
-          showUserLocation = {true}
-          region = {{
-            latitude:this.state.latitude,
-            longitude:this.state.longitude,
-            latitudeDelta: 0.002,
-            longitudeDelta: 0.002,
-          }}
-          style={styles.map}
-          onPress={(e) => {
-            const marker = this.state.marker
-            marker.coordinate = e.nativeEvent.coordinate
-            this.setState({
-              marker: marker
-            })}}
-        >
-        <MapView.Marker
-        coordinate={this.state.marker.coordinate}
-        />
+              showUserLocation = {true}
+              region = {{
+                latitude:this.state.latitude,
+                longitude:this.state.longitude,
+                latitudeDelta: 0.002,
+                longitudeDelta: 0.002,
+              }}
+              style={styles.map}
+              onPress={(e) => {
+                const marker = this.state.marker
+                marker.coordinate = e.nativeEvent.coordinate
+                this.setState({
+                  marker: marker
+                })}}
+            >
+            <MapView.Marker
+            coordinate={this.state.marker.coordinate}
+            />
         </MapView>
 
         <Modal 
@@ -162,6 +159,9 @@ export class Home extends Component {
           ><Text>Salvar ponto</Text>
           </TouchableOpacity>
           <TouchableOpacity
+          onPress={() => {
+            this.props.navigation.navigate('ListMarkers')
+          }}
           ><Text>Ver pontos salvos</Text>
           </TouchableOpacity>
           <Text>Endereço: {this.state.address}</Text>

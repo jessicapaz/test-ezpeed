@@ -9,6 +9,10 @@ import {
 import firebase from 'react-native-firebase'
 
 export class Login extends Component{
+    static navigationOptions = {
+        header: null,
+    }
+
     constructor(props){
         super(props);
         this.state = {
@@ -23,36 +27,35 @@ export class Login extends Component{
         firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password)
         .then(() => this.props.navigation.navigate('Home', {email: email}))
     }
-    static navigationOptions = {
-        header: null,
-    }
+    
     render(){
         return(
         <View style={styles.container}>
-          <TextInput
-          autoCapitalize="none"
-          placeholder="Email"
-          onChangeText={email => this.setState({ email })}
-          value={this.state.email}
-          />
+            <TextInput
+            autoCapitalize="none"
+            placeholder="Email"
+            onChangeText={email => this.setState({ email })}
+            value={this.state.email}
+            />
 
-          <TextInput
-          secureTextEntry
-          autoCapitalize="none"
-          placeholder="Password"
-          onChangeText={password => this.setState({ password })}
-          value={this.state.password}
-          />
+            <TextInput
+            secureTextEntry
+            autoCapitalize="none"
+            placeholder="Password"
+            onChangeText={password => this.setState({ password })}
+            value={this.state.password}
+            />
 
-          <TouchableOpacity 
-          style={styles.btn}
-          onPress={this.handleLogin}>
-              <Text>Entrar</Text>
-          </TouchableOpacity>
+            <TouchableOpacity 
+            style={styles.btn}
+            onPress={this.handleLogin}>
+                <Text>Entrar</Text>
+            </TouchableOpacity>
         </View>
         )
     }
 }
+
 const styles = StyleSheet.create({
     container: {
       flex: 1,
