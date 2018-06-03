@@ -1,18 +1,19 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import {
     StyleSheet,
     Text,
     TextInput,
     View,
     TouchableOpacity
-} from 'react-native'
-import firebase from 'react-native-firebase'
+} from 'react-native';
+import firebase from 'react-native-firebase';
+import LinearGradient from 'react-native-linear-gradient';
 
 export class Login extends Component{
     static navigationOptions = {
         header: null,
     }
-
+   
     constructor(props){
         super(props);
         this.state = {
@@ -30,12 +31,15 @@ export class Login extends Component{
     
     render(){
         return(
-        <View style={styles.container}>
+        <LinearGradient colors={['#d64747', '#c6145c']} style={styles.container}>
+            <View style={styles.form}>
             <TextInput
             autoCapitalize="none"
             placeholder="Email"
             onChangeText={email => this.setState({ email })}
             value={this.state.email}
+            underlineColorAndroid={'transparent'}
+            style={styles.input}
             />
 
             <TextInput
@@ -44,24 +48,50 @@ export class Login extends Component{
             placeholder="Password"
             onChangeText={password => this.setState({ password })}
             value={this.state.password}
+            underlineColorAndroid={'transparent'}
+            style={styles.input}
             />
 
             <TouchableOpacity 
             style={styles.btn}
             onPress={this.handleLogin}>
-                <Text>Entrar</Text>
+                <Text 
+                style={styles.btnText}
+                >Entrar</Text>
             </TouchableOpacity>
-        </View>
+            </View>
+        </LinearGradient>
         )
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
+        flex: 1,
+        justifyContent: 'center',
+    },
+    form: {
+        width: 340,
+        alignSelf: 'center',
+    },
+    input:{
+        borderBottomWidth: 1.5,
+        borderColor: '#fff',
+        color: '#fff',
+        fontSize: 18,
+        padding: 0,
+        marginBottom: 8
     },
     btn: {
+        backgroundColor: "#fff",
+        borderRadius: 50,
+        height: 50,
+        alignItems: 'center',
         justifyContent: 'center',
-        alignItems: 'center'
-    }
-  })
+        marginTop: 15,
+    },
+    btnText: {
+        color: "#c6145c",
+        fontSize: 18,
+    },
+});

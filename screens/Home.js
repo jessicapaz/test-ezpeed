@@ -72,14 +72,14 @@ export class Home extends Component {
 
     }
     render() {
-      const lat = this.state.marker.coordinate.latitude;
-      const long = this.state.marker.coordinate.longitude;
-      fetch("https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+long+"&key=AIzaSyCeEGUoBCUAJL7v97QAd-Lo_ZVxxi_j2xw", {
-        method: 'GET'})
-        .then((data) =>  data.json()).then((dataJson) => {
-          const address = dataJson.results[0].formatted_address;
-          this.setState({address:address})
-        })
+      // const lat = this.state.marker.coordinate.latitude;
+      // const long = this.state.marker.coordinate.longitude;
+      // fetch("https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+long+"&key=AIzaSyCeEGUoBCUAJL7v97QAd-Lo_ZVxxi_j2xw", {
+      //   method: 'GET'})
+      //   .then((data) =>  data.json()).then((dataJson) => {
+      //     const address = dataJson.results[0].formatted_address;
+      //     this.setState({address:address})
+      //   })
 
     return (
       <View style ={styles.container}>
