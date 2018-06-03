@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import firebase from 'react-native-firebase';
-import MapView, { Marker, AnimatedRegion, Animated} from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import { 
         StyleSheet,
         View, 
@@ -9,6 +9,7 @@ import {
         TouchableOpacity,
         Modal,
         } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
 
 export class Home extends Component {
@@ -108,19 +109,10 @@ export class Home extends Component {
           visible={this.state.modalVisible}
           transparent={true}
           >
-          <View style={{
-            flex: 1,
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: '#00000080'}}>
-          <View style={{
-            width: 300,
-            height: 300,
-            backgroundColor: '#fff', 
-            padding: 20}}>
-            <Text>Título</Text>
+          <View style={styles.modalOut}>
+          <View style={styles.modalIn}>
             <TextInput
+            style={styles.modalTextInput}
             placeholder="Título"
             onChangeText={(title) => {
               const marker = this.state.marker
@@ -128,47 +120,62 @@ export class Home extends Component {
               this.setState({marker})
             }} 
             />
-            <Text>Descrição</Text>
             <TextInput
+            style={styles.modalTextInput}
             placeholder="Descrição"
             onChangeText={(description) => {
               const marker = this.state.marker
               marker.description = description
               this.setState({marker})
             }}/>
-            <TouchableOpacity
-              onPress={this.saveMarker}>
-                <Text>Salvar ponto</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible);
-                }}>
-                <Text>Fechar</Text>
-            </TouchableOpacity>
+              <View style={styles.modalBtnView}>
+                <TouchableOpacity
+                  onPress={() => {
+                      this.setModalVisible(!this.state.modalVisible);
+                    }}>
+                    <Text style={styles.modalText}>Fechar</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={this.saveMarker}>
+                    <Text style={styles.modalText}>Salvar</Text>
+                </TouchableOpacity>
+              </View>
             </View>
             </View>
         </Modal>
 
-        <View>
-          <TouchableOpacity
-          onPress={() => {
-            this.setModalVisible(true);
-          }
-          }
-          ><Text>Salvar ponto</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-          onPress={() => {
-            this.props.navigation.navigate('ListMarkers')
-          }}
-          ><Text>Ver pontos salvos</Text>
-          </TouchableOpacity>
-          <Text>Endereço: {this.state.address}</Text>
-          <Text>Latitude: {this.state.latitude}</Text>
-          <Text>Longitude: {this.state.longitude}</Text>
-          <Text>Nome:</Text>
-          <Text>E-mail: {this.state.email}</Text>          
+        <View style={styles.infoContainer}>
+          <View style={styles.btnView}>
+          <LinearGradient 
+          start={{x: 0.0, y: 0.25}} end={{x: 1.0, y: 1.0}} 
+           colors={['#d64747', '#d54249', '#d33e4b', '#d2394d', '#d0344f']} style={styles.btn}>
+            <TouchableOpacity
+            onPress={() => {
+              this.setModalVisible(true);
+            }}
+            >     
+              <Text style={styles.btnText}>Salvar ponto</Text>
+            </TouchableOpacity>
+          </LinearGradient>
+          <LinearGradient 
+          start={{x: 0.0, y: 0.25}} end={{x: 1.0, y: 1.0}} 
+           colors={['#d64747', '#d54249', '#d33e4b', '#d2394d', '#d0344f']} style={styles.btn}>
+            <TouchableOpacity
+            onPress={() => {
+              this.props.navigation.navigate('ListMarkers')
+            }}
+            >
+            <Text style={styles.btnText}>Pontos salvos</Text>
+            </TouchableOpacity>
+          </LinearGradient>
+          </View>
+          <Text style={styles.infoText}>
+            Endereço: {this.state.address}{'\n'}
+            Latitude: {this.state.latitude}{'\n'}
+            Longitude: {this.state.longitude}{'\n'}
+            Nome: {'\n'}
+            E-mail: {this.state.email}
+          </Text>      
         </View>
       </View>
       
@@ -177,13 +184,78 @@ export class Home extends Component {
 }
 const styles = StyleSheet.create({
     container: {
-      ...StyleSheet.absoluteFillObject,
-      justifyContent: 'flex-end',
+      // ...StyleSheet.absoluteFillObject,
+      // justifyContent: 'flex-end',
+      backgroundColor: '#fff',
       alignItems: 'center',
+      margin: 0,
+      flex: 1,
     },
     map: {
+      margin:0,
+      // ...StyleSheet.absoluteFillObject,
       height: 400,
-      width: 500,
-      ...StyleSheet.absoluteFillObject,
+      width: 420,
+    },
+    infoContainer:{
+      marginTop: 15,
+      alignSelf: 'stretch',
+      padding: 8,
+      paddingTop: 0,
+      // ...StyleSheet.absoluteFillObject,
+      // justifyContent: 'flex-start'
+    },
+    btnView:{
+      flexDirection: 'row',
+      justifyContent: 'space-between', 
+    },
+    btn:{
+      // backgroundColor: "#d64747",
+      borderRadius: 3,
+      height: 50,
+      width: 190,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: 15,
+    },
+    btnText:{
+      color: '#fff',
+      fontSize: 18,
+    },
+    infoText:{
+      paddingTop: 5,
+      fontSize: 18,
+    },
+    modalOut:{
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#00000080'
+    },
+    modalIn:{
+      width: 300,
+      height: 200,
+      backgroundColor: '#fff', 
+      padding: 20,
+      borderRadius: 3,
+    },
+    modalTextInput:{
+      fontSize: 18,
+    },
+    modalText:{
+      fontSize: 15,
+    },
+    modalBtnView:{
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      // alignSelf: 'flex-bottom',
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      padding: 20,
+      paddingBottom: 10,
+
     },
   });

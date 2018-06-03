@@ -9,7 +9,7 @@ import { StackNavigator,
 const App = StackNavigator({
     Login: { screen: Login },
     Home: { screen: Home },
-    ListMarkers: { screen: ListMarkers },
+    ListMarkers: { screen: ListMarkers},
 });
 export default App;
 console.disableYellowBox = true;

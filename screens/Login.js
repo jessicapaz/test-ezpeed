@@ -31,7 +31,8 @@ export class Login extends Component{
     
     render(){
         return(
-        <LinearGradient colors={['#d64747', '#c6145c']} style={styles.container}>
+        <LinearGradient  start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}} 
+        colors={['#d64747', '#d33c4c', '#d03051', '#cb2356', '#c6145c']} style={styles.container}>
             <View style={styles.form}>
             <TextInput
             autoCapitalize="none"
