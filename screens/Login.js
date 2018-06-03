@@ -4,7 +4,8 @@ import {
     Text,
     TextInput,
     View,
-    TouchableOpacity
+    TouchableOpacity,
+    Dimensions
 } from 'react-native';
 import firebase from 'react-native-firebase';
 import LinearGradient from 'react-native-linear-gradient';
@@ -16,6 +17,7 @@ export class Login extends Component{
    
     constructor(props){
         super(props);
+
         this.state = {
             email: 'jessicamorim.42@gmail.com',
             password: 'paramore08',
@@ -65,6 +67,7 @@ export class Login extends Component{
         )
     }
 }
+const {height, width} = Dimensions.get('screen'); 
 
 const styles = StyleSheet.create({
     container: {
@@ -72,7 +75,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     form: {
-        width: 340,
+        width: width - width*0.05,
+        borderRadius: 4,
         alignSelf: 'center',
     },
     input:{

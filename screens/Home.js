@@ -8,6 +8,7 @@ import {
         TextInput,
         TouchableOpacity,
         Modal,
+        Dimensions,
         } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -87,8 +88,8 @@ export class Home extends Component {
         <MapView
               showUserLocation = {true}
               region = {{
-                latitude:this.state.latitude,
-                longitude:this.state.longitude,
+                latitude:this.state.marker.coordinate.latitude,
+                longitude:this.state.marker.coordinate.longitude,
                 latitudeDelta: 0.002,
                 longitudeDelta: 0.002,
               }}
@@ -133,7 +134,7 @@ export class Home extends Component {
                   onPress={() => {
                       this.setModalVisible(!this.state.modalVisible);
                     }}>
-                    <Text style={styles.modalText}>Fechar</Text>
+                    <Text style={styles.modalText}>Cancelar</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={this.saveMarker}>
@@ -146,28 +147,30 @@ export class Home extends Component {
 
         <View style={styles.infoContainer}>
           <View style={styles.btnView}>
-          <LinearGradient 
-          start={{x: 0.0, y: 0.25}} end={{x: 1.0, y: 1.0}} 
-           colors={['#d64747', '#d54249', '#d33e4b', '#d2394d', '#d0344f']} style={styles.btn}>
             <TouchableOpacity
             onPress={() => {
               this.setModalVisible(true);
             }}
-            >     
-              <Text style={styles.btnText}>Salvar ponto</Text>
+            > 
+              <LinearGradient 
+              start={{x: 0.0, y: 0.25}} end={{x: 1.0, y: 1.0}} 
+              colors={['#d64747', '#d54249', '#d33e4b', '#d2394d', '#d0344f']} style={styles.btn}>   
+                <Text style={styles.btnText}>Salvar ponto</Text>
+              </LinearGradient>
             </TouchableOpacity>
-          </LinearGradient>
-          <LinearGradient 
-          start={{x: 0.0, y: 0.25}} end={{x: 1.0, y: 1.0}} 
-           colors={['#d64747', '#d54249', '#d33e4b', '#d2394d', '#d0344f']} style={styles.btn}>
+          
             <TouchableOpacity
             onPress={() => {
               this.props.navigation.navigate('ListMarkers')
             }}
             >
-            <Text style={styles.btnText}>Pontos salvos</Text>
+            <LinearGradient 
+            start={{x: 0.0, y: 0.25}} end={{x: 1.0, y: 1.0}} 
+            colors={['#d64747', '#d54249', '#d33e4b', '#d2394d', '#d0344f']} style={styles.btn}>
+              <Text style={styles.btnText}>Pontos salvos</Text>
+            </LinearGradient>
             </TouchableOpacity>
-          </LinearGradient>
+        
           </View>
           <Text style={styles.infoText}>
             Endereço: {this.state.address}{'\n'}
@@ -182,10 +185,10 @@ export class Home extends Component {
     )
   }
 }
+
+const {height, width} = Dimensions.get('screen'); 
 const styles = StyleSheet.create({
     container: {
-      // ...StyleSheet.absoluteFillObject,
-      // justifyContent: 'flex-end',
       backgroundColor: '#fff',
       alignItems: 'center',
       margin: 0,
@@ -193,12 +196,11 @@ const styles = StyleSheet.create({
     },
     map: {
       margin:0,
-      // ...StyleSheet.absoluteFillObject,
-      height: 400,
-      width: 420,
+      height: height - height*0.5,
+      width: width,
     },
     infoContainer:{
-      marginTop: 15,
+      marginTop: height - height*0.99,
       alignSelf: 'stretch',
       padding: 8,
       paddingTop: 0,
@@ -212,8 +214,8 @@ const styles = StyleSheet.create({
     btn:{
       // backgroundColor: "#d64747",
       borderRadius: 3,
-      height: 50,
-      width: 190,
+      height: height - height*0.94,
+      width: width - width*0.54,
       alignItems: 'center',
       justifyContent: 'center',
       marginTop: 15,
@@ -234,8 +236,8 @@ const styles = StyleSheet.create({
       backgroundColor: '#00000080'
     },
     modalIn:{
-      width: 300,
-      height: 200,
+      width: width - width*0.3,
+      height: height - height*0.72,
       backgroundColor: '#fff', 
       padding: 20,
       borderRadius: 3,
