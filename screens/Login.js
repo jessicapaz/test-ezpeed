@@ -20,7 +20,7 @@ export class Login extends Component{
 
         this.state = {
             email: 'jessicamorim.42@gmail.com',
-            password: 'paramore08',
+            password: '123456',
         }
         const { navigate } = this.props.navigation;
     }
