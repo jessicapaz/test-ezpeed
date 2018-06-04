@@ -33,27 +33,35 @@ export class Login extends Component{
     
     render(){
         return(
-        <LinearGradient  start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}} 
-        colors={['#d64747', '#d33c4c', '#d03051', '#cb2356', '#c6145c']} style={styles.container}>
-            <View style={styles.form}>
-            <TextInput
-            autoCapitalize="none"
-            placeholder="Email"
-            onChangeText={email => this.setState({ email })}
-            value={this.state.email}
-            underlineColorAndroid={'transparent'}
-            style={styles.input}
-            />
+        <LinearGradient  start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}}
+        colors={['#c6145c', '#cb2356', '#d03051', '#d3364c', '#d64747']}  style={styles.container}>
 
-            <TextInput
-            secureTextEntry
-            autoCapitalize="none"
-            placeholder="Password"
-            onChangeText={password => this.setState({ password })}
-            value={this.state.password}
-            underlineColorAndroid={'transparent'}
-            style={styles.input}
-            />
+            <View style={styles.form}>
+                <View style={styles.formInput}>
+                    <Text style={{alignSelf:'center', 
+                                color:'#c6145c',
+                                paddingBottom: 20,
+                                fontSize: 25,}}>
+                                Login</Text>
+                    <TextInput
+                        autoCapitalize="none"
+                        placeholder="Email"
+                        onChangeText={email => this.setState({ email })}
+                        value={this.state.email}
+                        underlineColorAndroid={'transparent'}
+                        style={styles.input}
+                    />
+
+                    <TextInput
+                        secureTextEntry
+                        autoCapitalize="none"
+                        placeholder="Password"
+                        onChangeText={password => this.setState({ password })}
+                        value={this.state.password}
+                        underlineColorAndroid={'transparent'}
+                        style={styles.input}
+                    />
+                </View>
 
             <TouchableOpacity 
             style={styles.btn}
@@ -75,28 +83,32 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     form: {
-        width: width - width*0.05,
-        borderRadius: 4,
+        width: width - width*0.08,
         alignSelf: 'center',
     },
     input:{
-        borderBottomWidth: 1.5,
-        borderColor: '#fff',
-        color: '#fff',
-        fontSize: 18,
-        padding: 0,
-        marginBottom: 8
+        backgroundColor: '#f1f1f1',
+        color: '#777',
+        fontSize: 20,
+        marginBottom: 10,
+        paddingLeft: 5,
+        borderRadius: 6,
     },
     btn: {
         backgroundColor: "#fff",
         borderRadius: 50,
-        height: 50,
+        height: height - height*0.90,
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 15,
     },
     btnText: {
         color: "#c6145c",
-        fontSize: 18,
+        fontSize: 20,
     },
+    formInput:{
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        padding: 20,
+    }
 });

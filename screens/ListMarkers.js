@@ -49,7 +49,10 @@ export class ListMarkers extends Component{
         // const { region } = this.props;
 
         return (
-            <View style ={styles.container}>
+            <LinearGradient 
+              start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}} 
+              colors={['#c6145c', '#cb2356', '#d03051', '#d3364c', '#d64747']}
+              style ={styles.container}>
             <MapView
                 style={styles.map}
                 region={this.state.region}
@@ -89,7 +92,7 @@ export class ListMarkers extends Component{
             )
             )}
             </ScrollView>
-        </View>
+        </LinearGradient>
         );
     }
 }
@@ -102,13 +105,13 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     map: {
-        margin:0,
-        height: height - height*0.5,
-        width: width,
+        height: height*0.52,
+        width: width*0.97,
+        margin: 10
     },
     infoContent:{
-        width: width -20,
-        paddingVertical: 20
+        width: width - 20,
+        paddingVertical: 20,
     },
     items:{
         // borderBottomWidth: 0.6,
@@ -119,11 +122,14 @@ const styles = StyleSheet.create({
     },
     itemText:{
         fontSize: 18,
+        color: '#fff'
     },
     itemBtn:{
-        borderRadius: 3,
-        width: width - width*0.80,
-        height: height - height*0.95,
+        borderRadius: 50,
+        borderWidth: 1.6,
+        borderColor: '#fff',
+        width: width*0.2,
+        height: height*0.05,
         justifyContent: 'center',
         alignItems: 'center',
         

@@ -59,9 +59,11 @@ export class Home extends Component {
         { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000, distanceFilter: 10 },
       );
     }
+
     componentWillUnmount() {
       navigator.geolocation.clearWatch(this.watchId);
     }
+
     setModalVisible(visible) {
       this.setState({modalVisible: visible});
     }
@@ -79,7 +81,7 @@ export class Home extends Component {
     render() {
       const lat = this.state.marker.coordinate.latitude;
       const long = this.state.marker.coordinate.longitude;
-      fetch("https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+long+"&key=AIzaSyCeEGUoBCUAJL7v97QAd-Lo_ZVxxi_j2xw", {
+      fetch("https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+long+"&key=AIzaSyC8g-XEfK3Ffoaac98sO2uovXZ2ifWj2uw", {
         method: 'GET'})
         .then((data) =>  data.json()).then((dataJson) => {
           const address = dataJson.results[0].formatted_address;
@@ -87,7 +89,10 @@ export class Home extends Component {
         })
 
     return (
-      <View style ={styles.container}>
+      <LinearGradient 
+              start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}} 
+              colors={['#c6145c', '#cb2356', '#d03051', '#d3364c', '#d64747']}
+              style ={styles.container}>
         <MapView
               showUserLocation = {true}
               region = {{
@@ -147,43 +152,34 @@ export class Home extends Component {
             </View>
             </View>
         </Modal>
-
-        <View style={styles.infoContainer}>
-          <View style={styles.btnView}>
-            <TouchableOpacity
-            onPress={() => {
-              this.setModalVisible(true);
-            }}
-            > 
-              <LinearGradient 
-              start={{x: 0.0, y: 0.25}} end={{x: 1.0, y: 1.0}} 
-              colors={['#d64747', '#d54249', '#d33e4b', '#d2394d', '#d0344f']} style={styles.btn}>   
-                <Text style={styles.btnText}>Salvar ponto</Text>
-              </LinearGradient>
-            </TouchableOpacity>
-          
-            <TouchableOpacity
-            onPress={() => {
-              this.props.navigation.navigate('ListMarkers')
-            }}
-            >
-            <LinearGradient 
-            start={{x: 0.0, y: 0.25}} end={{x: 1.0, y: 1.0}} 
-            colors={['#d64747', '#d54249', '#d33e4b', '#d2394d', '#d0344f']} style={styles.btn}>
-              <Text style={styles.btnText}>Pontos salvos</Text>
-            </LinearGradient>
-            </TouchableOpacity>
         
-          </View>
-          <Text style={styles.infoText}>
-            Endereço: {this.state.address}{'\n'}
-            Latitude: {this.state.latitude}{'\n'}
-            Longitude: {this.state.longitude}{'\n'}
-            Nome: {'\n'}
-            E-mail: {this.state.email}
-          </Text>      
-        </View>
-      </View>
+          <View style={styles.infoContainer}>
+            <View style={styles.btnView}>
+              <TouchableOpacity
+              onPress={() => {
+                this.setModalVisible(true);
+              }}
+              style={styles.btn} >  
+                  <Text style={styles.btnText}>Salvar ponto</Text>
+              </TouchableOpacity>
+            
+              <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate('ListMarkers')
+              }}
+              style={styles.btn}>
+                <Text style={styles.btnText}>Pontos salvos</Text>
+              </TouchableOpacity>
+          
+            </View>
+            <Text style={styles.infoText}>
+              Endereço: {this.state.address}{'\n'}
+              Latitude: {this.state.latitude}{'\n'}
+              Longitude: {this.state.longitude}{'\n'}
+              E-mail: {this.state.email}
+            </Text> 
+          </View>       
+        </LinearGradient>
       
     )
   }
@@ -192,21 +188,22 @@ export class Home extends Component {
 const {height, width} = Dimensions.get('screen'); 
 const styles = StyleSheet.create({
     container: {
-      backgroundColor: '#fff',
       alignItems: 'center',
       margin: 0,
       flex: 1,
     },
     map: {
-      margin:0,
-      height: height - height*0.5,
-      width: width,
+      height: height*0.52,
+      width: width*0.97,
+      margin: 10
     },
     infoContainer:{
       marginTop: height - height*0.99,
-      alignSelf: 'stretch',
-      padding: 8,
+      padding: 5,
       paddingTop: 0,
+      // height: height*0.2,
+      width: width,
+      // marginBottom: 0
       // ...StyleSheet.absoluteFillObject,
       // justifyContent: 'flex-start'
     },
@@ -215,13 +212,14 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between', 
     },
     btn:{
-      // backgroundColor: "#d64747",
-      borderRadius: 3,
+      borderRadius: 50,
+      borderWidth: 1.6,
+      borderColor: '#fff',
       height: height - height*0.94,
       width: width - width*0.54,
       alignItems: 'center',
       justifyContent: 'center',
-      marginTop: 15,
+      marginTop: 2,
     },
     btnText:{
       color: '#fff',
@@ -230,6 +228,7 @@ const styles = StyleSheet.create({
     infoText:{
       paddingTop: 5,
       fontSize: 18,
+      color: '#fff'
     },
     modalOut:{
       flex: 1,
